@@ -15,11 +15,15 @@ import { VibrationService } from "../platform/VibrationService";
 import { EnemyMovementSystem } from "./EnemyMovementSystem";
 import { TowerCombatSystem } from "./TowerCombatSystem";
 import { WaveSpawnSystem } from "./WaveSpawnSystem";
+import { TowerPanel } from "../ui/TowerPanel";
 
 const { ccclass, property } = _decorator;
 
 @ccclass("GameManager")
 export class GameManager extends Component {
+  private static readonly INITIAL_AUTO_WAVE_DELAY = 5;
+  private static readonly BETWEEN_WAVE_AUTO_DELAY = 2.2;
+
   @property(GameState)
   public gameState: GameState | null = null;
 
@@ -50,10 +54,13 @@ export class GameManager extends Component {
   @property(Node)
   public towerPrefab: Node | null = null;
 
+  public towerPanel: TowerPanel | null = null;
+
   private enemies: Enemy[] = [];
   private towers: Tower[] = [];
   private towerCounter = 0;
   private selectedTower: Tower | null = null;
+  private autoWaveDelayRemaining = 0;
 
   start(): void {
     if (!this.gameState) return;
@@ -62,12 +69,14 @@ export class GameManager extends Component {
       this.buildSpotManager.gameManager = this;
       this.buildSpotManager.loadLevel(this.gameState.currentLevelId);
     }
+    this.scheduleAutoWaveStart(GameManager.INITIAL_AUTO_WAVE_DELAY);
   }
 
   public startWave(): void {
     if (!this.gameState || !this.pathManager || !this.enemyPrefab || !this.enemyLayer || !this.waveSpawnSystem) return;
     if (this.gameState.phase !== "idle") return;
 
+    this.autoWaveDelayRemaining = 0;
     const wave = ConfigService.getWaveConfig(this.gameState.wave);
     this.gameState.startWave(wave.totalCount);
     this.gameState.advanceTutorial("upgrade");
@@ -76,6 +85,14 @@ export class GameManager extends Component {
 
   public canStartWave(): boolean {
     return !!this.gameState && this.gameState.phase === "idle" && !this.gameState.isGameOver;
+  }
+
+  public hasPendingAutoWaveStart(): boolean {
+    return this.canStartWave() && this.autoWaveDelayRemaining > 0;
+  }
+
+  public getAutoWaveDelayRemaining(): number {
+    return Math.max(0, this.autoWaveDelayRemaining);
   }
 
   public restartBattle(): void {
@@ -88,23 +105,33 @@ export class GameManager extends Component {
     this.towers = [];
     this.selectedTower = null;
     this.towerCounter = 0;
+    this.autoWaveDelayRemaining = 0;
     this.gameState.reset();
     if (this.buildSpotManager) {
       this.buildSpotManager.gameManager = this;
       this.buildSpotManager.loadLevel(this.gameState.currentLevelId);
     }
+    this.towerPanel?.renderTower(null);
+    this.scheduleAutoWaveStart(GameManager.INITIAL_AUTO_WAVE_DELAY);
   }
 
   public createTower(type: TowerTypeId, position: Vec3): Tower | null {
     if (!this.gameState || !this.towerLayer || !this.towerPrefab) return null;
+    if (!this.canBuildAt(position)) return null;
 
     const config = ConfigService.getTowerConfig(type);
-    if (!this.gameState.spendGold(config.cost)) return null;
-
     const towerNode = instantiate(this.towerPrefab);
-    this.towerLayer.addChild(towerNode);
     const tower = towerNode.getComponent(Tower);
-    if (!tower) return null;
+    if (!tower) {
+      towerNode.destroy();
+      return null;
+    }
+    if (!this.gameState.spendGold(config.cost)) {
+      towerNode.destroy();
+      return null;
+    }
+
+    this.towerLayer.addChild(towerNode);
 
     this.towerCounter += 1;
     tower.setup({
@@ -139,6 +166,7 @@ export class GameManager extends Component {
       this.gameState.selectedTowerId = tower?.towerId ?? "";
       this.gameState.clearBuildSelection();
     }
+    this.towerPanel?.renderTower(tower);
   }
 
   public clearSelectedTower(): void {
@@ -149,17 +177,30 @@ export class GameManager extends Component {
     return this.selectedTower;
   }
 
-  public upgradeSelectedTower(): boolean {
-    if (!this.gameState || !this.selectedTower) return false;
-    const cost = this.selectedTower.getUpgradeCost();
+  public canBuildAt(position: Vec3): boolean {
+    return this.buildSpotManager?.canBuildAt(
+      position,
+      this.towers.map((tower) => tower.node.getPosition())
+    ) ?? false;
+  }
+
+  public upgradeTower(tower: Tower): boolean {
+    if (!this.gameState) return false;
+    if (!tower.canUpgrade()) return false;
+    const cost = tower.getUpgradeCost();
     if (!this.gameState.spendGold(cost)) return false;
 
-    this.selectedTower.spentGold += cost;
-    this.selectedTower.upgrade();
+    tower.spentGold += cost;
+    tower.upgrade();
+    this.selectTower(tower);
     if (!this.gameState.tutorialCompleted && this.gameState.tutorialStep === "upgrade") {
       this.gameState.markTutorialCompleted();
     }
     return true;
+  }
+
+  public upgradeSelectedTower(): boolean {
+    return this.selectedTower ? this.upgradeTower(this.selectedTower) : false;
   }
 
   public sellSelectedTower(): boolean {
@@ -167,16 +208,26 @@ export class GameManager extends Component {
 
     const tower = this.selectedTower;
     this.gameState.addGold(tower.getSellValue());
+    tower.buildSpot?.release();
+    tower.buildSpot = null;
     tower.node.destroy();
     this.towers = this.towers.filter((item) => item !== tower);
     this.selectedTower = null;
     tower.setSelected(false);
     this.gameState.selectedTowerId = "";
+    this.towerPanel?.renderTower(null);
     return true;
   }
 
   update(dt: number): void {
     if (!this.gameState || this.gameState.isGameOver || this.gameState.isPaused) return;
+
+    if (this.hasPendingAutoWaveStart()) {
+      this.autoWaveDelayRemaining = Math.max(0, this.autoWaveDelayRemaining - dt);
+      if (this.autoWaveDelayRemaining === 0 && this.canStartWave()) {
+        this.startWave();
+      }
+    }
 
     const spawned = this.waveSpawnSystem?.tick(dt) ?? [];
     for (const enemyType of spawned) {
@@ -187,6 +238,9 @@ export class GameManager extends Component {
     const reachedGoal = this.enemyMovementSystem?.tick(this.enemies, dt) ?? [];
     for (const enemy of reachedGoal) {
       this.handleEnemyReachedGoal(enemy);
+      if (this.gameState.isGameOver) {
+        return;
+      }
     }
 
     this.applyEnemySupport(dt);
@@ -198,6 +252,7 @@ export class GameManager extends Component {
       if (this.gameState.wave >= level.targetWave) {
         const rewardSummary = this.resolveVictoryRewards();
         this.gameState.markVictory();
+        this.autoWaveDelayRemaining = 0;
         this.waveSpawnSystem?.stop();
         BattleResultSession.setResult({
           result: "victory",
@@ -215,7 +270,17 @@ export class GameManager extends Component {
       }
       this.gameState.recordWaveClear();
       this.waveSpawnSystem?.stop();
+      this.scheduleAutoWaveStart(GameManager.BETWEEN_WAVE_AUTO_DELAY);
     }
+  }
+
+  private scheduleAutoWaveStart(delaySeconds: number): void {
+    if (!this.gameState || this.gameState.isGameOver) {
+      this.autoWaveDelayRemaining = 0;
+      return;
+    }
+
+    this.autoWaveDelayRemaining = this.gameState.phase === "idle" ? Math.max(0, delaySeconds) : 0;
   }
 
   private spawnEnemy(
@@ -232,9 +297,13 @@ export class GameManager extends Component {
     const hpBase = 34 + this.gameState.wave * 9;
     const speedBase = 45 + this.gameState.wave * 5;
     const enemyNode = instantiate(this.enemyPrefab);
-    this.enemyLayer.addChild(enemyNode);
     const enemy = enemyNode.getComponent(Enemy);
-    if (!enemy) return;
+    if (!enemy) {
+      enemyNode.destroy();
+      return;
+    }
+
+    this.enemyLayer.addChild(enemyNode);
 
     const hp = Math.round(hpBase * config.hpFactor);
     const shieldHp = config.shieldFactor ? Math.round(hp * config.shieldFactor) : 0;
@@ -325,6 +394,7 @@ export class GameManager extends Component {
     enemy.node.destroy();
     this.enemies = this.enemies.filter((item) => item !== enemy);
     if (this.gameState?.isGameOver) {
+      this.autoWaveDelayRemaining = 0;
       this.waveSpawnSystem?.stop();
       VibrationService.vibrateLong();
       BattleResultSession.setResult({

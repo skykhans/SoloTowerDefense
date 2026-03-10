@@ -8,7 +8,7 @@ const { ccclass, property } = _decorator;
 
 @ccclass("BuildSpotClickHandler")
 export class BuildSpotClickHandler extends Component {
-  @property(GameManager)
+  @property({ type: "GameManager" })
   public gameManager: GameManager | null = null;
 
   @property(GameState)
@@ -37,8 +37,10 @@ export class BuildSpotClickHandler extends Component {
     const worldPosition = this.node.getPosition();
     const tower = this.gameManager.createTower(this.gameState.selectedBuildTowerType, new Vec3(worldPosition.x, worldPosition.y, worldPosition.z));
     if (tower) {
+      tower.buildSpot = this.buildSpot;
       this.buildSpot.occupy();
       this.gameState.clearBuildSelection();
+      this.gameManager.selectTower(tower);
       VibrationService.vibrateShort();
     }
   }

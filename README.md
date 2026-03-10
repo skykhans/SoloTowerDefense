@@ -21,6 +21,7 @@
 
 根目录提供了当前主线的一键启动脚本：
 
+- `start.mjs`
 - `start.bat`
 - `start.ps1`
 
@@ -30,6 +31,33 @@
 
 - 自动扫描常见安装目录
 - 手动设置环境变量 `COCOS_CREATOR_EXE` 或 `COCOS_CREATOR_PATH`
+
+跨平台环境可直接运行：
+
+```bash
+npm start
+```
+
+## 检查命令
+
+推荐先跑统一检查：
+
+```bash
+npm run check
+```
+
+它会依次执行资源清单检查和命令行 TypeScript 检查。
+
+也可以单独运行：
+
+```bash
+npm run check:resources
+npm run check:types
+```
+
+当前也保留 Windows PowerShell 版本：
+
+- `tools/check-resource-manifest.ps1`
 
 ## 当前已落地的 Cocos 能力
 
@@ -44,14 +72,14 @@
 
 详细说明见：
 
-- [当前开发状态](/C:/Test/SoloTowerDefense/docs/05-当前开发状态.md)
-- [目录结构说明](/C:/Test/SoloTowerDefense/docs/07-目录结构说明.md)
-- [MainScene节点结构说明](/C:/Test/SoloTowerDefense/docs/11-MainScene节点结构说明.md)
-- [场景流转与接线规范](/C:/Test/SoloTowerDefense/docs/15-场景流转与接线规范.md)
-- [Cocos场景搭建清单](/C:/Test/SoloTowerDefense/docs/18-Cocos场景搭建清单.md)
-- [微信小游戏构建配置说明](/C:/Test/SoloTowerDefense/docs/19-微信小游戏构建配置说明.md)
-- [平台适配说明](/C:/Test/SoloTowerDefense/docs/21-平台适配说明.md)
-- [资源清单校验说明](/C:/Test/SoloTowerDefense/docs/32-资源清单校验说明.md)
+- [当前开发状态](./docs/05-当前开发状态.md)
+- [目录结构说明](./docs/07-目录结构说明.md)
+- [MainScene节点结构说明](./docs/11-MainScene节点结构说明.md)
+- [场景流转与接线规范](./docs/15-场景流转与接线规范.md)
+- [Cocos场景搭建清单](./docs/18-Cocos场景搭建清单.md)
+- [微信小游戏构建配置说明](./docs/19-微信小游戏构建配置说明.md)
+- [平台适配说明](./docs/21-平台适配说明.md)
+- [资源清单校验说明](./docs/32-资源清单校验说明.md)
 
 ## legacy-web 说明
 

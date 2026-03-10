@@ -10,7 +10,7 @@
 
 说明：
 
-- 场景名应与 [`SceneNames.ts`](/C:/Test/SoloTowerDefense/assets/scripts/core/SceneNames.ts) 保持一致
-- 场景搭建顺序可参考 [18-Cocos场景搭建清单](/C:/Test/SoloTowerDefense/docs/18-Cocos场景搭建清单.md)
-- 场景资源占位建议见 [31-最小可运行资源清单.md](/C:/Test/SoloTowerDefense/docs/31-最小可运行资源清单.md)
+- 场景名应与 [`SceneNames.ts`](../scripts/core/SceneNames.ts) 保持一致
+- 场景搭建顺序可参考 [18-Cocos场景搭建清单](../../docs/18-Cocos场景搭建清单.md)
+- 场景资源占位建议见 [31-最小可运行资源清单.md](../../docs/31-最小可运行资源清单.md)
 - 当前仓库根目录就是 Cocos 工程，不再额外嵌套 `cocos-wechat/`

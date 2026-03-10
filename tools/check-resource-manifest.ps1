@@ -2,55 +2,24 @@ $ErrorActionPreference = "Stop"
 
 $root = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
 $assetsRoot = Join-Path $root "assets"
+$manifestFile = Join-Path $root "assets\scripts\config\ResourceManifestData.json"
+$manifest = Get-Content -Raw -Path $manifestFile | ConvertFrom-Json
 
-$sceneFiles = @(
-    "textures/ui/home-background-placeholder.png",
-    "textures/ui/home-title-panel-placeholder.png",
-    "textures/ui/home-summary-panel-placeholder.png",
-    "textures/ui/home-level-panel-placeholder.png",
-    "textures/ui/home-action-panel-placeholder.png",
-    "textures/ui/button-primary-placeholder.png",
-    "textures/ui/button-secondary-placeholder.png",
-    "textures/backgrounds/battle-map-background-placeholder.png",
-    "textures/backgrounds/battle-path-placeholder.png",
-    "textures/backgrounds/battle-hud-panel-placeholder.png",
-    "textures/backgrounds/battle-toolbar-panel-placeholder.png",
-    "textures/backgrounds/battle-tower-panel-placeholder.png",
-    "textures/ui/result-background-placeholder.png",
-    "textures/ui/result-panel-placeholder.png",
-    "textures/ui/button-primary-placeholder.png",
-    "textures/ui/button-secondary-placeholder.png"
-)
+$sceneFiles = foreach ($profile in $manifest.scene.PSObject.Properties.Value) {
+    foreach ($file in $profile.suggestedAssets) {
+        "$($profile.textureGroup)$file"
+    }
+}
 
-$prefabFiles = @(
-    "textures/enemies/enemy-normal-placeholder.png",
-    "textures/enemies/enemy-fast-placeholder.png",
-    "textures/enemies/enemy-heavy-placeholder.png",
-    "textures/enemies/enemy-boss-placeholder.png",
-    "textures/enemies/enemy-hpbar-fill-placeholder.png",
-    "textures/towers/tower-base-placeholder.png",
-    "textures/towers/tower-rapid-placeholder.png",
-    "textures/towers/tower-cannon-placeholder.png",
-    "textures/towers/tower-frost-placeholder.png",
-    "textures/towers/tower-selection-ring-placeholder.png",
-    "textures/towers/tower-range-indicator-placeholder.png",
-    "textures/ui/buildspot-available-placeholder.png",
-    "textures/ui/buildspot-occupied-placeholder.png",
-    "textures/ui/buildspot-hint-placeholder.png",
-    "textures/effects/bullet-rapid-placeholder.png",
-    "textures/effects/bullet-cannon-placeholder.png",
-    "textures/effects/bullet-frost-placeholder.png",
-    "textures/effects/hit-effect-core-placeholder.png"
-)
+$prefabFiles = foreach ($profile in $manifest.prefab.PSObject.Properties.Value) {
+    foreach ($file in $profile.suggestedSpriteNames) {
+        "$($profile.textureGroup)$file"
+    }
+}
 
-$audioFiles = @(
-    "audio/sfx/build.wav",
-    "audio/sfx/upgrade.wav",
-    "audio/sfx/hit.wav",
-    "audio/sfx/enemy-death.wav",
-    "audio/sfx/victory.wav",
-    "audio/sfx/failure.wav"
-)
+$audioFiles = foreach ($file in $manifest.audio.suggestedFiles) {
+    "$($manifest.audio.group)$file"
+}
 
 function Test-ManifestGroup {
     param(

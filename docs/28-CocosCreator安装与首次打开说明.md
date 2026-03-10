@@ -17,14 +17,15 @@
 
 安装完成后可直接运行：
 
-- [`start.ps1`](/C:/Test/SoloTowerDefense/start.ps1)
-- [`start.bat`](/C:/Test/SoloTowerDefense/start.bat)
+- [`start.mjs`](../start.mjs)
+- [`start.ps1`](../start.ps1)
+- [`start.bat`](../start.bat)
 
 ## 三、首次打开项目
 
 当前主线项目目录：
 
-- [`SoloTowerDefense 仓库根目录`](/C:/Test/SoloTowerDefense/README.md)
+- [`SoloTowerDefense 仓库根目录`](../README.md)
 
 首次打开时请注意：
 
@@ -36,7 +37,7 @@
 
 1. 打开仓库根目录
 2. 等待编辑器完成导入
-3. 按 [18-Cocos场景搭建清单](/C:/Test/SoloTowerDefense/docs/18-Cocos场景搭建清单.md) 检查三张主场景
-4. 按 [12-预制体接入说明.md](/C:/Test/SoloTowerDefense/docs/12-预制体接入说明.md) 创建五类预制体
+3. 按 [18-Cocos场景搭建清单](./18-Cocos场景搭建清单.md) 检查三张主场景
+4. 按 [12-预制体接入说明.md](./12-预制体接入说明.md) 创建五类预制体
 5. 挂上 Installer、UI、View 和系统脚本
 6. 先通过结构自检，再修 Inspector 绑定问题

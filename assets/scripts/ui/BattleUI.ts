@@ -1,5 +1,4 @@
 import { _decorator, Button, Component, Label } from "cc";
-import type { TowerTypeId } from "../config/TowerConfig";
 import { GameState } from "../core/GameState";
 import { TutorialGuideService } from "../core/TutorialGuideService";
 import { GameManager } from "../systems/GameManager";
@@ -72,6 +71,10 @@ export class BattleUI extends Component {
 
     switch (this.gameState.phase) {
       case "idle":
+        if (this.gameManager?.hasPendingAutoWaveStart()) {
+          const seconds = this.gameManager.getAutoWaveDelayRemaining();
+          return `自动出兵 ${seconds.toFixed(1)}s`;
+        }
         return "待命";
       case "spawning":
         return `出兵中 ${this.gameState.pendingEnemies}`;
@@ -85,29 +88,18 @@ export class BattleUI extends Component {
   }
 
   private resolveBuildModeText(): string {
-    if (!this.gameState || !this.gameState.selectedBuildTowerType) {
-      return "当前未选择建造模式";
-    }
-
-    return `建造模式：${this.resolveTowerName(this.gameState.selectedBuildTowerType)}`;
-  }
-
-  private resolveTowerName(type: TowerTypeId): string {
-    switch (type) {
-      case "rapid":
-        return "速射塔";
-      case "cannon":
-        return "重炮塔";
-      case "frost":
-        return "减速塔";
-      default:
-        return type;
-    }
+    return "点击空地打开建造菜单";
   }
 
   private resolveStartWaveButtonText(): string {
     if (!this.gameState) return "开始波次";
-    if (this.gameState.phase === "idle") return "开始波次";
+    if (this.gameState.phase === "idle") {
+      if (this.gameManager?.hasPendingAutoWaveStart()) {
+        const seconds = this.gameManager.getAutoWaveDelayRemaining();
+        return `立即开始 ${seconds.toFixed(1)}s`;
+      }
+      return "开始波次";
+    }
     if (this.gameState.phase === "spawning") return "出兵中";
     if (this.gameState.phase === "resolving") return "清场中";
     return "战斗结束";
@@ -119,21 +111,6 @@ export class BattleUI extends Component {
     }
 
     return TutorialGuideService.getBattleHint(this.gameState.tutorialStep, this.gameState.tutorialCompleted);
-  }
-
-  public onSelectRapid(): void {
-    this.gameManager?.clearSelectedTower();
-    this.gameState?.selectBuildTowerType("rapid");
-  }
-
-  public onSelectCannon(): void {
-    this.gameManager?.clearSelectedTower();
-    this.gameState?.selectBuildTowerType("cannon");
-  }
-
-  public onSelectFrost(): void {
-    this.gameManager?.clearSelectedTower();
-    this.gameState?.selectBuildTowerType("frost");
   }
 
   public onClearBuildSelection(): void {

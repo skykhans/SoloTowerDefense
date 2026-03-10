@@ -1,0 +1,27 @@
+Total messages: 25 (Errors: 3, Warnings: 0)
+
+[ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://localhost:8042/favicon.ico:0
+[TIMEEND] Init Base: 5.60595703125 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:49953
+[TIMEEND] Init Infrastructure: 11.972900390625 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:49993
+[LOG] [PHYSICS2D]: register box2d. @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:1157
+[TIMEEND] Init SubSystem: 37.851806640625 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:50034
+[LOG] Cocos Creator v3.8.8 @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:1157
+[LOG] Using custom pipeline: Builtin @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:1157
+[TIMEEND] Init Project: 23.949951171875 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:50072
+[TIMEEND] LoadScene HomeScene: 11.7109375 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:47422
+[TIMEEND] InitScene: 0.06689453125 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:47331
+[TIMEEND] AttachPersist: 0.0400390625 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:47355
+[TIMEEND] AutoRelease: 0.046142578125 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:47370
+[TIMEEND] Destroy: 0.06494140625 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:47376
+[ERROR] Sorry, the component of 'RuntimeHome' which with an index of 1 is corrupted! It has been removed. @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:1163
+[LOG] Corrupted component value: null @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:1157
+[TIMEEND] Activate: 2.550048828125 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:47388
+[TIMEEND] LoadScene db://assets/scenes/HomeScene.scene: 39.1259765625 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:47422
+[TIMEEND] InitScene: 0.026123046875 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:47331
+[TIMEEND] AttachPersist: 0.3798828125 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:47355
+[TIMEEND] AutoRelease: 0.033935546875 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:47370
+[TIMEEND] Destroy: 1.15576171875 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:47376
+[ERROR] Sorry, the component of 'RuntimeHome' which with an index of 1 is corrupted! It has been removed. @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:1163
+[LOG] Corrupted component value: null @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:1157
+[TIMEEND] Activate: 1.037109375 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:47388
+[LOG] Success to load scene: db://assets/scenes/HomeScene.scene @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:1157

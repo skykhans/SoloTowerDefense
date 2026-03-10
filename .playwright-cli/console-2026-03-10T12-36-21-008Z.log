@@ -1,0 +1,3 @@
+[      49ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://localhost:8042/favicon.ico:0
+[     289ms] [ERROR] Sorry, the component of 'RuntimeHome' which with an index of 1 is corrupted! It has been removed. @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:1163
+[    2093ms] [ERROR] Sorry, the component of 'RuntimeHome' which with an index of 1 is corrupted! It has been removed. @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:1163

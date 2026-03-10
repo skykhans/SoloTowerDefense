@@ -1,7 +1,17 @@
 {
   "name": "solo-tower-defense-cocos",
+  "scripts": {
+    "check": "npm run check:resources && npm run check:types",
+    "check:resources": "node tools/check-resource-manifest.mjs",
+    "check:types": "tsc -p tsconfig.typecheck.json --noEmit",
+    "start": "node start.mjs"
+  },
   "creator": {
     "version": "3.8.8"
   },
-  "uuid": "b533a648-3129-410b-bf50-9bf72a8261d0"
+  "uuid": "b533a648-3129-410b-bf50-9bf72a8261d0",
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  },
+  "version": "3.8.8"
 }

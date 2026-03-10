@@ -6,7 +6,7 @@
 
 ## 一、工程准备
 
-- [ ] 用 Cocos Creator 3.x 打开项目根目录 [`SoloTowerDefense`](/C:/Test/SoloTowerDefense/README.md)
+- [ ] 用 Cocos Creator 3.x 打开项目根目录 [`SoloTowerDefense`](../README.md)
 - [ ] 确认现有 `assets/scenes/`
 - [ ] 确认现有 `assets/prefabs/`
 - [ ] 确认现有 `assets/textures/`

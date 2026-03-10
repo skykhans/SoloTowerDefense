@@ -4,7 +4,6 @@ import { BattleResultSession } from "../core/BattleResultSession";
 import { HomeNoticeSession } from "../core/HomeNoticeSession";
 import { LocalStorageService } from "../core/LocalStorageService";
 import { ShareService } from "../platform/ShareService";
-import { VibrationService } from "../platform/VibrationService";
 import { SceneNavigator } from "../core/SceneNavigator";
 import { SCENE_NAMES } from "../core/SceneNames";
 
@@ -104,9 +103,7 @@ export class ResultUI extends Component {
       result.result === "victory"
         ? `我在第 ${result.levelId} 关完成了目标波次 ${result.reachedWave}`
         : `我在第 ${result.levelId} 关坚持到了第 ${result.reachedWave} 波`;
-    const candidateNextLevelId = result.levelId + 1;
-    const hasNextLevel = ConfigService.getAllLevelConfigs().some((level) => level.id === candidateNextLevelId);
-    this.nextLevelId = result.result === "victory" && hasNextLevel ? candidateNextLevelId : null;
+    this.nextLevelId = result.result === "victory" ? result.unlockedLevelId : null;
 
     this.resultLabel.string =
       result.result === "victory"
@@ -145,10 +142,6 @@ export class ResultUI extends Component {
 
     if (this.shareButtonLabel) {
       this.shareButtonLabel.string = "分享战绩";
-    }
-
-    if (result.result === "failure") {
-      VibrationService.vibrateLong();
     }
 
     (this.panelRoot ?? this.node).active = true;

@@ -1,0 +1,2 @@
+[      38ms] [ERROR] Failed to load resource: the server responded with a status of 404 (File not found) @ http://localhost:8042/favicon.ico:0
+[  668654ms] [ERROR] getComponent: Type must be non-nil @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:1163

@@ -1,0 +1,68 @@
+Total messages: 12 (Errors: 0, Warnings: 4)
+
+[TIMEEND] Init Base: 0.18701171875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:26816
+[TIMEEND] Init Infrastructure: 219.324951171875 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:26865
+[LOG] meshopt wasm decoder initialized @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:169893
+[LOG] [PHYSICS2D]: register box2d. @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:169893
+[TIMEEND] Init SubSystem: 67.758056640625 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:26912
+[LOG] Cocos Creator v3.8.8 @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:169893
+[WARNING] Found possible circular reference in "http://localhost:7456/scripting/x/chunks/36/36a59d97c5ab0bdf98e180a27c51bbf9c85b47d8.js", happened when use "GameManager" imported from "../systems/GameManager"  Error
+    at Object.execute (http://localhost:7456/scripting/x/chunks/36/36a59d97c5ab0bdf98e180a27c51bbf9c85b47d8.js:61:16)
+    at doExec (http://localhost:7456/scripting/systemjs/system.js:497:32)
+    at postOrderExec (http://localhost:7456/scripting/systemjs/system.js:488:23)
+    at http://localhost:7456/scripting/systemjs/system.js:473:30
+    at Array.forEach (<anonymous>)
+    at postOrderExec (http://localhost:7456/scripting/systemjs/system.js:471:12)
+    at http://localhost:7456/scripting/systemjs/system.js:473:30
+    at Array.forEach (<anonymous>)
+    at postOrderExec (http://localhost:7456/scripting/systemjs/system.js:471:12)
+    at http://localhost:7456/scripting/systemjs/system.js:473:30 @ http://localhost:7456/scripting/x/chunks/6a/6a5019a719a9014c047e67aa1cf34453ab8392ce.js:15
+[WARNING] You are explicitly specifying `undefined` type to cc property "gameManager" of cc class "BuildSpotClickHandler".
+Is this intended? If not, this may indicate a circular reference.
+For example:
+
+ 
+// foo.ts
+import { _decorator } from 'cc';
+import { Bar } from './bar';  // Given that './bar' also reference 'foo.ts'.
+                              // When importing './bar', execution of './bar' is hung on to wait execution of 'foo.ts',
+                              // the `Bar` imported here is `undefined` until './bar' finish its execution.
+                              // It leads to that
+@_decorator.ccclass           //  ↓
+export class Foo {            //  ↓
+    @_decorator.type(Bar)     //  → is equivalent to `@_decorator.type(undefined)`
+    public bar: Bar;          // To eliminate this error, either:
+                              // - Refactor your module structure(recommended), or
+                              // - specify the type as cc class name: `@_decorator.type('Bar'/* or any name you specified for `Bar` */)`
+} @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:169906
+[WARNING] Found possible circular reference in "http://localhost:7456/scripting/x/chunks/11/114a2049adb4919483e21c84aa325701232e8cc9.js", happened when use "GameManager" imported from "../systems/GameManager"  Error
+    at Object.execute (http://localhost:7456/scripting/x/chunks/11/114a2049adb4919483e21c84aa325701232e8cc9.js:62:16)
+    at doExec (http://localhost:7456/scripting/systemjs/system.js:497:32)
+    at postOrderExec (http://localhost:7456/scripting/systemjs/system.js:488:23)
+    at http://localhost:7456/scripting/systemjs/system.js:473:30
+    at Array.forEach (<anonymous>)
+    at postOrderExec (http://localhost:7456/scripting/systemjs/system.js:471:12)
+    at http://localhost:7456/scripting/systemjs/system.js:473:30
+    at Array.forEach (<anonymous>)
+    at postOrderExec (http://localhost:7456/scripting/systemjs/system.js:471:12)
+    at http://localhost:7456/scripting/systemjs/system.js:473:30 @ http://localhost:7456/scripting/x/chunks/6a/6a5019a719a9014c047e67aa1cf34453ab8392ce.js:15
+[WARNING] You are explicitly specifying `undefined` type to cc property "gameManager" of cc class "BuildSpotManager".
+Is this intended? If not, this may indicate a circular reference.
+For example:
+
+ 
+// foo.ts
+import { _decorator } from 'cc';
+import { Bar } from './bar';  // Given that './bar' also reference 'foo.ts'.
+                              // When importing './bar', execution of './bar' is hung on to wait execution of 'foo.ts',
+                              // the `Bar` imported here is `undefined` until './bar' finish its execution.
+                              // It leads to that
+@_decorator.ccclass           //  ↓
+export class Foo {            //  ↓
+    @_decorator.type(Bar)     //  → is equivalent to `@_decorator.type(undefined)`
+    public bar: Bar;          // To eliminate this error, either:
+                              // - Refactor your module structure(recommended), or
+                              // - specify the type as cc class name: `@_decorator.type('Bar'/* or any name you specified for `Bar` */)`
+} @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:169906
+[LOG] Using custom pipeline: Builtin @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:169893
+[TIMEEND] Init Project: 80.85986328125 ms @ http://localhost:7456/scripting/engine/bin/.cache/dev/preview/bundled/index.js:26958

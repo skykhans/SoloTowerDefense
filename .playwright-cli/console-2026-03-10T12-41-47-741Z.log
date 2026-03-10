@@ -1,0 +1,28 @@
+Total messages: 26 (Errors: 0, Warnings: 0)
+
+[TIMEEND] Init Base: 2.742919921875 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:49953
+[TIMEEND] Init Infrastructure: 9.389892578125 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:49993
+[LOG] [PHYSICS2D]: register box2d. @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:1157
+[TIMEEND] Init SubSystem: 28.218994140625 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:50034
+[LOG] Cocos Creator v3.8.8 @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:1157
+[LOG] Using custom pipeline: Builtin @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:1157
+[TIMEEND] Init Project: 21.75 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:50072
+[TIMEEND] LoadScene HomeScene: 13.442138671875 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:47422
+[TIMEEND] InitScene: 0.074951171875 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:47331
+[TIMEEND] AttachPersist: 0.032958984375 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:47355
+[TIMEEND] AutoRelease: 0.05615234375 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:47370
+[TIMEEND] Destroy: 0.076904296875 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:47376
+[TIMEEND] Activate: 2.9609375 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:47388
+[TIMEEND] LoadScene db://assets/scenes/HomeScene.scene: 26.590087890625 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:47422
+[TIMEEND] InitScene: 0.01806640625 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:47331
+[TIMEEND] AttachPersist: 0.148193359375 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:47355
+[TIMEEND] AutoRelease: 0.044921875 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:47370
+[TIMEEND] Destroy: 1.296875 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:47376
+[TIMEEND] Activate: 1.201171875 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:47388
+[LOG] Success to load scene: db://assets/scenes/HomeScene.scene @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:1157
+[TIMEEND] LoadScene MainScene: 31.554931640625 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:47422
+[TIMEEND] InitScene: 0.095947265625 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:47331
+[TIMEEND] AttachPersist: 0.178955078125 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:47355
+[TIMEEND] AutoRelease: 0.130126953125 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:47370
+[TIMEEND] Destroy: 1.203857421875 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:47376
+[TIMEEND] Activate: 4.553955078125 ms @ http://localhost:8042/cocos-js/_virtual_cc-y8x7t64p.js:47388
