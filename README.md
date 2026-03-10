@@ -31,6 +31,11 @@
 - 自动扫描常见安装目录
 - 手动设置环境变量 `COCOS_CREATOR_EXE` 或 `COCOS_CREATOR_PATH`
 
+当前已覆盖的常见路径包括：
+
+- `C:\ProgramData\cocos\editors\Creator\`
+- `C:\Program Files (x86)\CocosDashboard\resources\.editors\`
+
 ## 当前已落地的 Cocos 能力
 
 - 首页关卡选择与本地存档

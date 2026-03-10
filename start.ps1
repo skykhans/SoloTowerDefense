@@ -17,6 +17,8 @@ function Get-CocosCreatorPath {
     $candidatePaths = @(
         (Join-Path $env:ProgramFiles "Cocos\CocosDashboard\resources\.editors"),
         (Join-Path ${env:ProgramFiles(x86)} "Cocos\CocosDashboard\resources\.editors"),
+        (Join-Path $env:ProgramData "cocos\editors\Creator"),
+        (Join-Path ${env:ProgramFiles(x86)} "CocosDashboard\resources\.editors"),
         (Join-Path $env:LOCALAPPDATA "Programs\CocosCreator"),
         (Join-Path $env:LOCALAPPDATA "CocosCreator"),
         (Join-Path $env:USERPROFILE "AppData\Local\Programs\CocosCreator"),

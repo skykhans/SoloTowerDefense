@@ -1,4 +1,4 @@
-export type EnemyTypeId = "normal" | "fast" | "heavy" | "shield" | "boss";
+export type EnemyTypeId = "normal" | "fast" | "heavy" | "shield" | "split" | "healer" | "boss";
 
 export interface EnemyDefinition {
   id: EnemyTypeId;
@@ -9,6 +9,11 @@ export interface EnemyDefinition {
   lifeDamage: number;
   radius: number;
   shieldFactor?: number;
+  splitInto?: EnemyTypeId;
+  splitCount?: number;
+  healFactor?: number;
+  healRadius?: number;
+  healInterval?: number;
   isBoss?: boolean;
 }
 
@@ -49,6 +54,29 @@ export const ENEMY_CONFIG: Record<EnemyTypeId, EnemyDefinition> = {
     lifeDamage: 2,
     radius: 16,
     shieldFactor: 0.75,
+  },
+  split: {
+    id: "split",
+    name: "分裂敌人",
+    hpFactor: 1.15,
+    speedFactor: 1.08,
+    rewardBonus: 14,
+    lifeDamage: 1,
+    radius: 15,
+    splitInto: "fast",
+    splitCount: 2,
+  },
+  healer: {
+    id: "healer",
+    name: "治疗敌人",
+    hpFactor: 1.05,
+    speedFactor: 0.96,
+    rewardBonus: 18,
+    lifeDamage: 1,
+    radius: 15,
+    healFactor: 0.18,
+    healRadius: 120,
+    healInterval: 2.4,
   },
   boss: {
     id: "boss",

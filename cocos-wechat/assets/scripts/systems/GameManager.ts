@@ -189,6 +189,7 @@ export class GameManager extends Component {
       this.handleEnemyReachedGoal(enemy);
     }
 
+    this.applyEnemySupport(dt);
     this.towerCombatSystem?.tick(this.towers, this.enemies, dt);
     this.cleanupDeadEnemies();
 
@@ -217,7 +218,14 @@ export class GameManager extends Component {
     }
   }
 
-  private spawnEnemy(type: EnemyTypeId): void {
+  private spawnEnemy(
+    type: EnemyTypeId,
+    options?: {
+      position?: Vec3;
+      waypointIndex?: number;
+      rewardScale?: number;
+    }
+  ): void {
     if (!this.gameState || !this.pathManager || !this.enemyPrefab || !this.enemyLayer) return;
 
     const config = ConfigService.getEnemyConfig(type);
@@ -230,26 +238,82 @@ export class GameManager extends Component {
 
     const hp = Math.round(hpBase * config.hpFactor);
     const shieldHp = config.shieldFactor ? Math.round(hp * config.shieldFactor) : 0;
+    const healAmount = config.healFactor ? Math.max(1, Math.round(hp * config.healFactor)) : 0;
     enemy.setup({
       enemyType: config.id,
       hp,
       speed: speedBase * config.speedFactor,
-      reward: 12 + Math.floor(this.gameState.wave * 1.8) + config.rewardBonus,
+      reward: Math.max(
+        1,
+        Math.round((12 + Math.floor(this.gameState.wave * 1.8) + config.rewardBonus) * (options?.rewardScale ?? 1))
+      ),
       lifeDamage: config.lifeDamage,
       shieldHp,
-      position: this.pathManager.getSpawnPoint(),
+      splitInto: config.splitInto,
+      splitCount: config.splitCount,
+      healAmount,
+      healRadius: config.healRadius,
+      healInterval: config.healInterval,
+      waypointIndex: options?.waypointIndex,
+      position: options?.position ?? this.pathManager.getSpawnPoint(),
     });
 
     this.enemies.push(enemy);
+  }
+
+  private applyEnemySupport(dt: number): void {
+    for (const enemy of this.enemies) {
+      if (enemy.isDead) {
+        continue;
+      }
+
+      enemy.tickSupport(dt);
+      if (!enemy.canTriggerHeal()) {
+        continue;
+      }
+
+      const sourcePosition = enemy.node.getPosition();
+      let healedCount = 0;
+      for (const ally of this.enemies) {
+        if (ally === enemy || ally.isDead) {
+          continue;
+        }
+
+        const distance = Vec3.distance(sourcePosition, ally.node.getPosition());
+        if (distance > enemy.healRadius) {
+          continue;
+        }
+
+        ally.receiveHeal(enemy.healAmount);
+        healedCount += 1;
+      }
+
+      if (healedCount > 0) {
+        enemy.resetHealTimer();
+      }
+    }
   }
 
   private cleanupDeadEnemies(): void {
     for (let i = this.enemies.length - 1; i >= 0; i -= 1) {
       const enemy = this.enemies[i];
       if (!enemy.isDead) continue;
+      const splitInfo = enemy.consumeSplit();
       this.gameState?.addGold(enemy.reward);
       if (this.gameState) {
         this.gameState.kills += 1;
+      }
+      if (splitInfo) {
+        const origin = enemy.node.getPosition();
+        for (let index = 0; index < splitInfo.count; index += 1) {
+          const offsetX = (index - (splitInfo.count - 1) / 2) * 18;
+          const offset = new Vec3(origin.x + offsetX, origin.y, origin.z);
+          this.spawnEnemy(splitInfo.enemyType, {
+            position: offset,
+            waypointIndex: enemy.waypointIndex,
+            rewardScale: 0.55,
+          });
+        }
       }
       enemy.node.destroy();
       this.enemies.splice(i, 1);

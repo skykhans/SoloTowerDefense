@@ -15,6 +15,7 @@
 - 地图层：`PathManager`、建造点管理
 - 场景层：`HomeScene`、`MainScene`、`ResultScene` 接线脚本
 - UI 层：`HomeUI`、`BattleUI`、`TowerPanel`、`ResultUI`
+- 已补最小 Cocos 工程元文件：`.creator / settings / profiles / package.json / tsconfig.json`
 
 ## 推荐目录
 
@@ -37,7 +38,7 @@ cocos-wechat/
 
 ## 建议下一步
 
-1. 用 Cocos Creator 打开这个目录并初始化工程元文件
+1. 用 Cocos Creator 或 Cocos Dashboard 打开这个目录
 2. 创建 `HomeScene / MainScene / ResultScene`
 3. 将各场景 Installer 挂到场景根节点
 4. 按 `docs/11-18` 绑定脚本、节点和预制体

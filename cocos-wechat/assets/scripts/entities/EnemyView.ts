@@ -18,6 +18,12 @@ export class EnemyView extends Component {
   public shieldVisual: Node | null = null;
 
   @property(Node)
+  public splitVisual: Node | null = null;
+
+  @property(Node)
+  public healerVisual: Node | null = null;
+
+  @property(Node)
   public bossVisual: Node | null = null;
 
   @property(Node)
@@ -28,10 +34,15 @@ export class EnemyView extends Component {
 
   public applyEnemyType(type: EnemyTypeId): void {
     const hasShieldVisual = !!this.shieldVisual;
+    const hasSplitVisual = !!this.splitVisual;
+    const hasHealerVisual = !!this.healerVisual;
     if (this.normalVisual) this.normalVisual.active = type === "normal";
-    if (this.fastVisual) this.fastVisual.active = type === "fast";
+    if (this.fastVisual) this.fastVisual.active = type === "fast" || (type === "split" && !hasSplitVisual);
     if (this.heavyVisual) this.heavyVisual.active = type === "heavy" || (type === "shield" && !hasShieldVisual);
     if (this.shieldVisual) this.shieldVisual.active = type === "shield";
+    if (this.splitVisual) this.splitVisual.active = type === "split";
+    if (this.healerVisual) this.healerVisual.active = type === "healer";
+    if (this.normalVisual && !hasHealerVisual) this.normalVisual.active = this.normalVisual.active || type === "healer";
     if (this.bossVisual) this.bossVisual.active = type === "boss";
   }
 
