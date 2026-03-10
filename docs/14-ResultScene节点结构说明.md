@@ -25,7 +25,7 @@ ResultScene
 
 推荐命名常量位置：
 
-- [`SceneNodeNames.ts`](/C:/Test/SoloTowerDefense/cocos-wechat/assets/scripts/ui/SceneNodeNames.ts)
+- [`SceneNodeNames.ts`](/C:/Test/SoloTowerDefense/assets/scripts/ui/SceneNodeNames.ts)
 
 ## 节点说明
 

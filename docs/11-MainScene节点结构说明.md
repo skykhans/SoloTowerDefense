@@ -2,7 +2,7 @@
 
 ## 目标
 
-本文档定义 `cocos-wechat` 版本中 `MainScene` 的推荐节点结构，用于将现有脚本骨架接入 Cocos Creator 场景。
+本文档定义当前 Cocos 主线中 `MainScene` 的推荐节点结构，用于将现有脚本骨架接入 Cocos Creator 场景。
 
 ## 推荐层级
 

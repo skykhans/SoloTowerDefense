@@ -1,7 +1,7 @@
 $ErrorActionPreference = "Stop"
 
 $root = Split-Path -Parent (Split-Path -Parent $MyInvocation.MyCommand.Path)
-$assetsRoot = Join-Path $root "cocos-wechat\assets"
+$assetsRoot = Join-Path $root "assets"
 
 $sceneFiles = @(
     "textures/ui/home-background-placeholder.png",

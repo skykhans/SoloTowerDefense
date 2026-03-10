@@ -1,7 +1,7 @@
 $ErrorActionPreference = "Stop"
 
 $root = Split-Path -Parent $MyInvocation.MyCommand.Path
-$projectDir = Join-Path $root "cocos-wechat"
+$projectDir = $root
 $docFile = Join-Path $root "docs\11-MainScene节点结构说明.md"
 
 function Get-CocosCreatorPath {
