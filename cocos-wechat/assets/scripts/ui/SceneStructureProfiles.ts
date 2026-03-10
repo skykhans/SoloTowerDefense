@@ -1,0 +1,82 @@
+import { HOME_SCENE_NODE_NAMES, MAIN_SCENE_NODE_NAMES, RESULT_SCENE_NODE_NAMES } from "./SceneNodeNames";
+import { SceneLayoutProfiles } from "./SceneLayoutProfiles";
+
+const unique = (values: string[]): string[] => [...new Set(values)];
+
+export class SceneStructureProfiles {
+  public static readonly homeRequiredNodeNames = unique([
+    HOME_SCENE_NODE_NAMES.summaryPanel,
+    HOME_SCENE_NODE_NAMES.levelPanel,
+    HOME_SCENE_NODE_NAMES.actionPanel,
+    HOME_SCENE_NODE_NAMES.summaryLabel,
+    HOME_SCENE_NODE_NAMES.levelLabel,
+    HOME_SCENE_NODE_NAMES.levelDetailLabel,
+    HOME_SCENE_NODE_NAMES.statusLabel,
+    HOME_SCENE_NODE_NAMES.prevLevelButton,
+    HOME_SCENE_NODE_NAMES.nextLevelButton,
+    HOME_SCENE_NODE_NAMES.selectLevelButton,
+    HOME_SCENE_NODE_NAMES.startLevelButton,
+    HOME_SCENE_NODE_NAMES.startLevelButtonLabel,
+    HOME_SCENE_NODE_NAMES.resetProgressButton,
+    HOME_SCENE_NODE_NAMES.shareButton,
+    HOME_SCENE_NODE_NAMES.shareButtonLabel,
+    ...SceneLayoutProfiles.home.map((item) => item.nodeName),
+  ]);
+
+  public static readonly battleRequiredNodeNames = unique([
+    MAIN_SCENE_NODE_NAMES.managers,
+    MAIN_SCENE_NODE_NAMES.world,
+    MAIN_SCENE_NODE_NAMES.ui,
+    MAIN_SCENE_NODE_NAMES.mapLayer,
+    MAIN_SCENE_NODE_NAMES.buildSpotLayer,
+    MAIN_SCENE_NODE_NAMES.towerLayer,
+    MAIN_SCENE_NODE_NAMES.enemyLayer,
+    MAIN_SCENE_NODE_NAMES.bulletLayer,
+    MAIN_SCENE_NODE_NAMES.topHud,
+    MAIN_SCENE_NODE_NAMES.resourceBar,
+    MAIN_SCENE_NODE_NAMES.phaseBar,
+    MAIN_SCENE_NODE_NAMES.actionButtons,
+    MAIN_SCENE_NODE_NAMES.buildToolbar,
+    MAIN_SCENE_NODE_NAMES.towerPanel,
+    MAIN_SCENE_NODE_NAMES.towerPanelActions,
+    MAIN_SCENE_NODE_NAMES.livesLabel,
+    MAIN_SCENE_NODE_NAMES.goldLabel,
+    MAIN_SCENE_NODE_NAMES.waveLabel,
+    MAIN_SCENE_NODE_NAMES.killsLabel,
+    MAIN_SCENE_NODE_NAMES.bestWaveLabel,
+    MAIN_SCENE_NODE_NAMES.phaseLabel,
+    MAIN_SCENE_NODE_NAMES.buildModeLabel,
+    MAIN_SCENE_NODE_NAMES.startWaveButton,
+    MAIN_SCENE_NODE_NAMES.startWaveButtonLabel,
+    MAIN_SCENE_NODE_NAMES.pauseButton,
+    MAIN_SCENE_NODE_NAMES.pauseButtonLabel,
+    MAIN_SCENE_NODE_NAMES.restartButton,
+    MAIN_SCENE_NODE_NAMES.rapidButton,
+    MAIN_SCENE_NODE_NAMES.cannonButton,
+    MAIN_SCENE_NODE_NAMES.frostButton,
+    MAIN_SCENE_NODE_NAMES.clearBuildSelectionButton,
+    MAIN_SCENE_NODE_NAMES.towerPanelTitle,
+    MAIN_SCENE_NODE_NAMES.towerInfoLabel,
+    MAIN_SCENE_NODE_NAMES.upgradeValueLabel,
+    MAIN_SCENE_NODE_NAMES.sellValueLabel,
+    MAIN_SCENE_NODE_NAMES.actionHintLabel,
+    MAIN_SCENE_NODE_NAMES.upgradeButton,
+    MAIN_SCENE_NODE_NAMES.sellButton,
+    ...SceneLayoutProfiles.battle.map((item) => item.nodeName),
+  ]);
+
+  public static readonly resultRequiredNodeNames = unique([
+    RESULT_SCENE_NODE_NAMES.resultPanel,
+    RESULT_SCENE_NODE_NAMES.resultActions,
+    RESULT_SCENE_NODE_NAMES.titleLabel,
+    RESULT_SCENE_NODE_NAMES.resultLabel,
+    RESULT_SCENE_NODE_NAMES.actionHintLabel,
+    RESULT_SCENE_NODE_NAMES.nextLevelButton,
+    RESULT_SCENE_NODE_NAMES.nextLevelButtonLabel,
+    RESULT_SCENE_NODE_NAMES.retryButton,
+    RESULT_SCENE_NODE_NAMES.backHomeButton,
+    RESULT_SCENE_NODE_NAMES.shareButton,
+    RESULT_SCENE_NODE_NAMES.shareButtonLabel,
+    ...SceneLayoutProfiles.result.map((item) => item.nodeName),
+  ]);
+}

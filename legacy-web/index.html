@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SoloTowerDefense</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2310161f'/%3E%3Cpath d='M32 10l18 10v24L32 54 14 44V20z' fill='%235ac8fa'/%3E%3Ccircle cx='32' cy='32' r='8' fill='%23f7b538'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="layout">
+    <section class="panel">
+      <h1>Solo Tower Defense</h1>
+      <p>阻止怪物抵达终点，生存尽可能久。</p>
+      <div class="stats">
+        <div>生命值: <span id="lives">20</span></div>
+        <div>金币: <span id="gold">120</span></div>
+        <div>波次: <span id="wave">1</span></div>
+        <div>击杀: <span id="kills">0</span></div>
+        <div>场上敌人: <span id="enemies">0</span></div>
+        <div>速度: <span id="speedText">1x</span></div>
+        <div>最佳波次: <span id="bestWave">1</span></div>
+      </div>
+
+      <section class="wave-panel">
+        <h2>波次情报</h2>
+        <p id="waveInfo">下一波敌军正在集结。</p>
+        <div class="progress">
+          <div id="waveProgressBar" class="progress-bar"></div>
+        </div>
+      </section>
+
+      <section class="build-panel">
+        <h2>建造炮塔</h2>
+        <p id="buildModeText">当前未选择建造模式。</p>
+        <div class="tower-actions three-cols">
+          <button id="buildRapidBtn">速射塔（70）</button>
+          <button id="buildCannonBtn">重炮塔（110）</button>
+          <button id="buildFrostBtn">减速塔（95）</button>
+        </div>
+        <button id="cancelBuildBtn">取消建造</button>
+      </section>
+
+      <div class="controls">
+        <button id="startBtn">开始波次</button>
+        <button id="speedBtn">切换 2x 速度</button>
+        <button id="pauseBtn">暂停</button>
+        <button id="restartBtn">重新开始</button>
+      </div>
+
+      <section class="skill-panel">
+        <h2>战术技能</h2>
+        <p id="skillInfo">空袭：清理一路敌人，冷却中。</p>
+        <div class="tower-actions">
+          <button id="airstrikeBtn">空袭（冷却中）</button>
+        </div>
+      </section>
+
+      <section class="tower-panel">
+        <h2>炮塔面板</h2>
+        <p id="towerInfo">点击已建造炮塔查看详情。</p>
+        <div class="tower-actions">
+          <button id="upgradeBtn" disabled>升级</button>
+          <button id="sellBtn" disabled>出售（返还 70%）</button>
+        </div>
+      </section>
+
+      <ul class="tips">
+        <li>先选择塔类型，再点击绿色格子放置。</li>
+        <li>点击空白区域可取消选中炮塔。</li>
+        <li>快捷键：<kbd>B</kbd> 速射塔、<kbd>N</kbd> 重炮塔、<kbd>M</kbd> 减速塔、<kbd>Esc</kbd> 取消建造、<kbd>Space</kbd> 暂停。</li>
+      </ul>
+      <p id="message" class="message"></p>
+    </section>
+    <section class="game-wrap">
+      <canvas id="gameCanvas" width="900" height="540"></canvas>
+      <section id="resultPanel" class="result-panel hidden">
+        <h2 id="resultTitle">战局结束</h2>
+        <p id="resultSummary">本局结果统计。</p>
+        <button id="resultRestartBtn">再来一局</button>
+      </section>
+    </section>
+  </main>
+  <script src="game.js"></script>
+</body>
+</html>
